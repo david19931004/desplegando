@@ -8,7 +8,11 @@ empleadoCtrl.createEmpleado = async (req, res) => {
     const respuesta = await ModelEmpleado.create(body);
     res.status(201).json(respuesta);
   } catch (error) {
-    res.status(400).json({ message: 'Error al crear empleado', error });
+    console.error("❌ Error real en createEmpleado:", error);
+    res.status(400).json({
+      message: 'Error al crear empleado',
+      error: error.message || "Error desconocido"
+    });
   }
 };
 
@@ -18,7 +22,11 @@ empleadoCtrl.getEmpleado = async (req, res) => {
     const respuesta = await ModelEmpleado.find({});
     res.json(respuesta);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener empleado', error });
+    console.error("❌ Error real en getEmpleado:", error);
+    res.status(500).json({
+      message: 'Error al obtener empleado',
+      error: error.message || "Error desconocido"
+    });
   }
 };
 
@@ -30,7 +38,11 @@ empleadoCtrl.getUniqueEmpleado = async (req, res) => {
     if (!respuesta) return res.status(404).json({ message: 'Empleado no encontrado' });
     res.json(respuesta);
   } catch (error) {
-    res.status(404).json({ message: 'Empleado no encontrado', error });
+    console.error("❌ Error real en getUniqueEmpleado:", error);
+    res.status(404).json({
+      message: 'Empleado no encontrado',
+      error: error.message || "Error desconocido"
+    });
   }
 };
 
@@ -43,7 +55,11 @@ empleadoCtrl.editEmpleado = async (req, res) => {
     if (!respuesta) return res.status(404).json({ message: 'Empleado no encontrado para actualizar' });
     res.json(respuesta);
   } catch (error) {
-    res.status(400).json({ message: 'Error al actualizar empleado', error });
+    console.error("❌ Error real en editEmpleado:", error);
+    res.status(400).json({
+      message: 'Error al actualizar empleado',
+      error: error.message || "Error desconocido"
+    });
   }
 };
 
@@ -55,9 +71,13 @@ empleadoCtrl.deleteEmpleado = async (req, res) => {
     if (!respuesta) return res.status(404).json({ message: 'Empleado no encontrado para eliminar' });
     res.json({ message: 'Empleado eliminado', data: respuesta });
   } catch (error) {
-    res.status(400).json({ message: 'Error al eliminar empleado', error });
+    console.error("❌ Error real en deleteEmpleado:", error);
+    res.status(400).json({
+      message: 'Error al eliminar empleado',
+      error: error.message || "Error desconocido"
+    });
   }
 };
 
-
 module.exports = empleadoCtrl;
+
